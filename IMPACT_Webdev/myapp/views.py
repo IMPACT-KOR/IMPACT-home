@@ -49,7 +49,7 @@ def HTMLTemplate(articleTag, id=None):
 def index(request):
     article = '''
     <h2>Welcome</h2>
-    Hello, Django
+    Hello, Django. We'are IMPACT_SITE_TEAM!
      
     '''
     return HttpResponse(HTMLTemplate(article))
