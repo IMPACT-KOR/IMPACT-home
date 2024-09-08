@@ -50,6 +50,7 @@ def index(request):
     article = '''
     <h2>Welcome</h2>
     Hello, Django. We'are IMPACT_SITE_TEAM!
+    This is DEV BRANCH!!!
      
     '''
     return HttpResponse(HTMLTemplate(article))
