@@ -40,7 +40,11 @@ def HTMLTemplate(articleTag, id=None):
         <ul>
             <li><a href="/create/">Create</a></li>
             {contextUI}
-        </ul>    
+        </ul>
+        <hr>
+        <ul>
+            <li><a href="/investment/login/">Go to Investment</a></li>  <!-- Investment로 가는 링크 추가 -->
+        </ul>
     </body>
     </html>
     '''
