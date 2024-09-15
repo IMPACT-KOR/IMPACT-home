@@ -124,4 +124,4 @@ def delete(request):
         return redirect('/')
     
 def homepage_view(request):
-    return render(request, "homepage.html")
+    return render(request, "homepage/homepage.html")
