@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러그 스타일 비행 슈팅 게임</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(43, 7, 72);  /* 배경 설정 */
+        }
+
+        #gameCanvas {
+            width: 480px;
+            height: 640px;
+            background-color: rgba(56, 3, 57, 0.533);
+            display: block;
+            position: relative;
+        }
+
+        #score {
+            color: white;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        #pauseBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        #pausePopup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            z-index: 20;
+        }
+
+        #pausePopup button {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #stageClearPopup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            z-index: 20;
+        }
+
+        #stageClearPopup button {
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="gameCanvas">
+        <p id="score">0</p>
+        <button id="pauseBtn">일시 중지</button>
+        <canvas id="canvasElement" width="480" height="640"></canvas>
+    </div>
+
+    <div id="pausePopup">
+        <h2>게임이 일시중지되었습니다</h2>
+        <button id="continueBtn">게임 계속</button>
+        <button id="restartBtn">처음부터 시작</button>
+        <button id="backToSelectionBtn">Hooch와의 대화로 돌아가기</button>
+    </div>
+
+    <!-- 스테이지 클리어 팝업 -->
+    <div id="stageClearPopup">
+        <h2>스테이지 클리어!</h2>
+        <p>재화 1개 획득!</p>
+        <button id="nextStageBtn">다음 스테이지로 이동</button>
+        <button id="quitGameBtn">게임 선택 화면으로 돌아가기</button> <!-- 추가된 버튼 -->
+    </div>
+
+    <script>
+        const canvas = document.getElementById("canvasElement");
+        const ctx = canvas.getContext("2d");
+
+        let gameRunning = false;
+        let gamePaused = false;
+        let score = 0;
+        let gameInterval;
+        let shootInterval;
+        let stage = 1;
+        let enemiesDestroyed = 0;
+        let enemiesToDestroy = 5;
+        let coins = 0;
+
+        const player = {
+            x: canvas.width / 2 - 20,
+            y: canvas.height - 60,
+            width: 40,
+            height: 40,
+            speed: 5,
+            bullets: [],
+            canShoot: true
+        };
+
+        const enemies = [];
+        const enemySpeed = 2;
+        let rightPressed = false;
+        let leftPressed = false;
+        let upPressed = false;
+        let downPressed = false;
+
+        const pauseBtn = document.getElementById("pauseBtn");
+        const pausePopup = document.getElementById("pausePopup");
+        const continueBtn = document.getElementById("continueBtn");
+        const restartBtn = document.getElementById("restartBtn");
+        const backToSelectionBtn = document.getElementById("backToSelectionBtn");
+
+        const stageClearPopup = document.getElementById("stageClearPopup");
+        const nextStageBtn = document.getElementById("nextStageBtn");
+        const quitGameBtn = document.getElementById("quitGameBtn"); // 추가된 버튼
+
+    // CSRF 토큰 가져오기
+    function getCSRFToken() {
+        let cookieValue = null;
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith("csrftoken=")) {
+                cookieValue = cookie.substring("csrftoken=".length);
+                break;
+            }
+        }
+        return cookieValue;
+    }
+
+    // 스테이지 클리어 후 재화를 서버로 보내기
+    function updateCoinsOnServer() {
+        fetch("/hooch/galaga/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCSRFToken(),  // CSRF 토큰 전송
+            },
+            body: JSON.stringify({ coins: 1 }),  // 1개 재화 추가
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("재화가 서버에 업데이트되었습니다:", data);
+        })
+        .catch(error => {
+            console.error("서버 업데이트 실패:", error);
+        });
+    }
+
+        // 스테이지 클리어 후 다음 스테이지로 이동
+        nextStageBtn.addEventListener("click", function () {
+            stageClearPopup.style.display = "none";
+            stage += 1;
+            enemiesDestroyed = 0;
+            enemiesToDestroy += 5;  // 다음 스테이지에서 더 많은 적 필요
+            coins += 1;  // 클라이언트 측에서 재화 증가
+            updateCoinsOnServer();  // 서버 측 재화 업데이트
+            startGame();  // 새 스테이지 시작
+        });
+        
+
+        // 게임 시작
+        document.body.onload = function () {
+            startGame();
+        };
+
+        function startGame() {
+            gameRunning = true;
+            gamePaused = false;
+            pauseBtn.style.display = "block";
+            spawnEnemy();
+            gameInterval = setInterval(spawnEnemy, 1000);
+            shootInterval = setInterval(autoShoot, 500);
+            update();
+        }
+
+        function resetGame() {
+            // 적과 총알 초기화
+            player.bullets = [];
+            enemies.length = 0;
+        }
+
+        // 일시 중지
+        pauseBtn.addEventListener("click", function () {
+            gamePaused = true;
+            pausePopup.style.display = "block";
+            clearInterval(gameInterval);
+            clearInterval(shootInterval);
+        });
+
+        // 팝업에서 게임 계속
+        continueBtn.addEventListener("click", function () {
+            gamePaused = false;
+            pausePopup.style.display = "none";
+            gameInterval = setInterval(spawnEnemy, 1000);
+            shootInterval = setInterval(autoShoot, 500);
+            update();
+        });
+
+        // 팝업에서 처음부터 시작
+        restartBtn.addEventListener("click", function () {
+            window.location.reload();
+        });
+
+        // 팝업에서 게임 선택으로 돌아가기
+        backToSelectionBtn.addEventListener("click", function () {
+            window.location.href = "/hooch/";
+        });
+
+        // 스테이지 클리어 후 다음 스테이지로 이동
+        nextStageBtn.addEventListener("click", function () {
+            stageClearPopup.style.display = "none";
+            stage += 1;
+            enemiesDestroyed = 0;
+            enemiesToDestroy += 5;  // 다음 스테이지에서 더 많은 적 필요
+            resetGame();  // 적 및 총알 초기화
+            startGame();  // 새 스테이지 시작
+        });
+
+        // 스테이지 클리어 후 게임 선택 화면으로 돌아가기
+        quitGameBtn.addEventListener("click", function () {
+            // 재화 업데이트 후 게임 선택 화면으로 이동
+            updateCoinsOnServer();  // 서버에 재화 업데이트
+            setTimeout(function() {  // 약간의 지연 후 게임 선택 화면으로 이동
+                window.location.href = "/hooch/";
+            }, 500);  // 0.5초 딜레이
+        });
+
+        document.addEventListener("keydown", movePlayer);
+        document.addEventListener("keyup", stopPlayer);
+
+        function movePlayer(e) {
+            if (e.key === "ArrowRight") {
+                rightPressed = true;
+            } else if (e.key === "ArrowLeft") {
+                leftPressed = true;
+            } else if (e.key === "ArrowUp") {
+                upPressed = true;
+            } else if (e.key === "ArrowDown") {
+                downPressed = true;
+            }
+        }
+
+        function stopPlayer(e) {
+            if (e.key === "ArrowRight") {
+                rightPressed = false;
+            } else if (e.key === "ArrowLeft") {
+                leftPressed = false;
+            } else if (e.key === "ArrowUp") {
+                upPressed = false;
+            } else if (e.key === "ArrowDown") {
+                downPressed = false;
+            }
+        }
+
+        function autoShoot() {
+            player.bullets.push({ x: player.x + player.width / 2 - 2.5, y: player.y, width: 5, height: 10 });
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        function drawBullets() {
+            ctx.fillStyle = "yellow";
+            player.bullets.forEach((bullet, index) => {
+                bullet.y -= 5;
+                ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+
+                if (bullet.y < 0) {
+                    player.bullets.splice(index, 1);
+                }
+            });
+        }
+
+        function spawnEnemy() {
+            const enemyWidth = 40;
+            const enemyHeight = 40;
+            const x = Math.random() * (canvas.width - enemyWidth);
+            enemies.push({ x: x, y: -enemyHeight, width: enemyWidth, height: enemyHeight });
+        }
+
+        function drawEnemies() {
+            ctx.fillStyle = "red";
+            enemies.forEach((enemy, index) => {
+                enemy.y += enemySpeed;
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+
+                player.bullets.forEach((bullet, bulletIndex) => {
+                    if (
+                        bullet.x < enemy.x + enemy.width &&
+                        bullet.x + bullet.width > enemy.x &&
+                        bullet.y < enemy.y + enemy.height &&
+                        bullet.y + bullet.height > enemy.y
+                    ) {
+                        enemies.splice(index, 1);
+                        player.bullets.splice(bulletIndex, 1);
+                        score += 100;
+                        enemiesDestroyed += 1;
+                        document.getElementById("score").textContent = score + " (재화: " + coins + ")";
+
+                        if (enemiesDestroyed >= enemiesToDestroy) {
+                            gameRunning = false;
+                            clearInterval(gameInterval);
+                            clearInterval(shootInterval);
+                            stageClearPopup.style.display = "block";
+                            coins += 1;
+                            document.getElementById("score").textContent = score + " (재화: " + coins + ")";
+                        }
+                    }
+                });
+
+                if (enemy.y > canvas.height) {
+                    enemies.splice(index, 1);
+                }
+            });
+        }
+
+        function update() {
+            if (gameRunning && !gamePaused) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (rightPressed && player.x + player.width < canvas.width) {
+                    player.x += player.speed;
+                }
+                if (leftPressed && player.x > 0) {
+                    player.x -= player.speed;
+                }
+                if (upPressed && player.y > 0) {
+                    player.y -= player.speed;
+                }
+                if (downPressed && player.y + player.height < canvas.height) {
+                    player.y += player.speed;
+                }
+
+                drawPlayer();
+                drawBullets();
+                drawEnemies();
+            }
+
+            requestAnimationFrame(update);
+        }
+    </script>
+</body>
+</html>

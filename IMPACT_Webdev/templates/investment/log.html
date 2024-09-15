@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Log</title>
+</head>
+<body>
+    <h2>Investment Log</h2>
+    <pre>{{ log_content }}</pre>
+    <a href="{{ url_for('dashboard') }}">돌아가기</a>
+</body>
+</html>
+'''
+
+team_assignment_template = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Assignment</title>
+</head>
+<body>
+    <h2>팀 배정 결과</h2>
+    {% for team, members in teams.items() %}
+        <h3>{{ team }} 팀</h3>
+        <p>{{ ', '.join(members) }}</p>
+    {% endfor %}
+    <a href="{{ url_for('dashboard') }}">돌아가기</a>
+</body>
+</html>

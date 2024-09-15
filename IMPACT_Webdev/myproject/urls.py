@@ -23,7 +23,11 @@ from django.urls import path, include
 # http://127.0.0.1/read/1
 
 
-urlpatterns = [                         #routing과 관련된 정보들이 들어감
+# myproject/urls.py
+urlpatterns = [
     path('admin/', admin.site.urls), 
-    path('',include('myapp.urls') )
+    path('', include('myapp.urls')),  # myapp의 URL 연결
+    path('investment/', include('investment.urls')),  # investment 앱의 URL 연결
+    path('guestbook/', include('guestbook.urls')),  # guestbook 앱의 URL 포함
 ]
+

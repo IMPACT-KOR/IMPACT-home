@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운세 결과</title>
+    <style>
+        body {
+            background-color: rgb(201, 10, 244);
+            color: white;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>운세 결과</h1>
+
+    {% if fortune %}
+        <!-- 운세 결과가 있을 경우 표시 -->
+        <p>{{ fortune }}</p>
+    {% endif %}
+
+    {% if require_birthdate %}
+        <!-- 재화가 부족하거나 재화를 사용하지 않을 경우, 생년월일 입력 폼 -->
+        <form method="POST">
+            {% csrf_token %}
+            <label for="birthdate">생년월일을 입력하세요 (예: 1990-01-01):</label><br>
+            <input type="date" id="birthdate" name="birthdate" required><br>
+            <button type="submit">기본 운세 확인</button>
+        </form>
+    {% else %}
+        <!-- 재화가 충분할 때 운세 결과 표시 -->
+        <p>재화가 부족하지 않습니다. 다양한 운세 결과를 확인하세요!</p>
+    {% endif %}
+
+    <!-- 현재 재화 표시 -->
+    <p>현재 재화: {{ coins }}</p>
+
+</body>
+</html>
