@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trelawney와의 대화</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            text-align: center;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+        }
+        input {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <p>현재 재화: {{ coins }}</p>
+
+    <!-- 재화를 사용할지 여부를 선택하는 버튼들 -->
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="use_coins" value="1">재화 사용하기</button>
+        <button type="submit" name="use_coins" value="0">재화 사용하지 않기</button>
+    </form>
+
+    {% if fortune_message %}
+    <p>{{ fortune_message }}</p>
+    {% endif %}
+</body>
+</html>
