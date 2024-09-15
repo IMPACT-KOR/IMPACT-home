@@ -28,5 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('', include('myapp.urls')),  # myapp의 URL 연결
     path('investment/', include('investment.urls')),  # investment 앱의 URL 연결
+    path('guestbook/', include('guestbook.urls')),  # guestbook 앱의 URL 포함
 ]
 
