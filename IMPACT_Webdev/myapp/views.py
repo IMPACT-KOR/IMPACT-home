@@ -38,6 +38,7 @@ def HTMLTemplate(articleTag, id=None):
         </ol>
         {articleTag}
         <ul>
+            <li>>>> <a href="/homepage/">Move to homepage</a> <<<</li>
             <li><a href="/create/">Create</a></li>
             {contextUI}
         </ul>    
@@ -103,3 +104,6 @@ def delete(request):
                 newTopics.append(topic)
         topics = newTopics
         return redirect('/')
+    
+def homepage_view(request):
+    return render(request, "homepage.html")

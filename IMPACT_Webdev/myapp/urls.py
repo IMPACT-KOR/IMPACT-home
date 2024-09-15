@@ -7,5 +7,6 @@ urlpatterns = [
     path('create/', views.create),
     path('read/<id>/', views.read),
     path('update/<id>/', views.update),
-    path('delete/', views.delete)
+    path('delete/', views.delete),
+    path('homepage/', views.homepage_view, name='homepage')
 ]
