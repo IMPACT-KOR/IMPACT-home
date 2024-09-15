@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IMPACT - Innovative Medicine & Progressive Action</title>
+    <link rel="stylesheet" href="{% static 'css/homepage_styles.css' %}">
+    <script src="{% static 'js/homepage_script.js' %}"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">IMPACT</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#stories">Stories</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Innovative Medicine, Creative Minds</h1>
+        <p>Where medicine and technology meet innovation</p>
+        <button>Learn More</button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About IMPACT</h2>
+        <p>We are a team of aspiring doctor developers blending AI, web development, and medicine to create innovative solutions for the future of healthcare.</p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-list">
+            <div class="project">
+                <h3>Project 1</h3>
+                <p>A short description of the project goes here.</p>
+            </div>
+            <div class="project">
+                <h3>Project 2</h3>
+                <p>A short description of the project goes here.</p>
+            </div>
+            <div class="project">
+                <h3>Project 3</h3>
+                <p>A short description of the project goes here.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 IMPACT Team. All rights reserved.</p>
+        <div class="social">
+            <a href="#">Twitter</a> | 
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+</body>
+</html>

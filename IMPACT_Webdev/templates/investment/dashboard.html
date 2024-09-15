@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Dashboard</h2>
+    <p>현재 잔액: {{ balance }}</p>
+    <form method="POST" action="/invest">
+        <div>
+            <label for="investee">투자할 사람 이름:</label>
+            <input type="text" id="investee" name="investee" required>
+        </div>
+        <div>
+            <label for="amount">투자 금액:</label>
+            <input type="number" id="amount" name="amount" min="0" max="1000" required>
+        </div>
+        <button type="submit">투자</button>
+    </form>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/logout">
+        <button type="submit">투자 종료</button>
+    </form>
+    {% if is_admin %}
+    <form method="GET" action="/log">
+        <button type="submit">투자 로그 보기</button>
+    </form>
+    <form method="POST" action="/clear_log">
+        <button type="submit">로그 초기화</button>
+    </form>
+    {% endif %}
+    <h3>팀 배정</h3>
+    <form method="POST" action="/assign_teams">
+        <div>
+            <label for="team_count">팀 수 입력:</label>
+            <input type="number" id="team_count" name="team_count" required>
+        </div>
+        <button type="submit">팀 배정</button>
+    </form>
+</body>
+</html>
