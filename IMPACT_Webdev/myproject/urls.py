@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 # http://127.0.0.1/
 # http://127.0.0.1/app/
 
@@ -30,4 +32,3 @@ urlpatterns = [
     path('investment/', include('investment.urls')),  # investment 앱의 URL 연결
     path('guestbook/', include('guestbook.urls')),  # guestbook 앱의 URL 포함
 ]
-

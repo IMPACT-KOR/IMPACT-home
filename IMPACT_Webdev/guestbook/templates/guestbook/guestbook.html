@@ -4,47 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>impact팀 방명록</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url('/static/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-        }
-        .blur-background {
-            filter: blur(8px);
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        .post-it-container {
-            position: absolute;
-            z-index: 2;
-            text-align: center;
-        }
-        .post-it-form {
-            background: #FFEB3B;
-            padding: 20px;
-            border: 1px solid #000;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-            width: 300px;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-        .post-it {
-            background: #FFEB3B;
-            margin: 10px;
-            padding: 10px;
-            width: 150px;
-            border: 1px solid #000;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'guestbook/css/styles.css' %}">
 </head>
 <body>
     <div class="blur-background"></div>

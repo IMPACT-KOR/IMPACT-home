@@ -1,0 +1,43 @@
+/* static/css/styles.css */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #603F26; /* 배경색을 #603F26으로 변경 */
+    position: relative;
+}
+
+.blur-background {
+    filter: blur(8px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.post-it-container {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+}
+
+.post-it-form {
+    background: #FFEAC5; /* 포스트잇 폼 배경색을 #FFEAC5로 변경 */
+    padding: 20px;
+    border: 1px solid #000;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.post-it {
+    background: #FFEAC5; /* 포스트잇 배경색을 #FFEAC5로 변경 */
+    margin: 10px;
+    padding: 10px;
+    width: 150px;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+}
