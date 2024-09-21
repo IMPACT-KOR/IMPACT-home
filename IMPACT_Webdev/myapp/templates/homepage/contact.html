@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IMPACT - Contact Us</title>
+
+    <!-- MD3 CDN Links -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/contact_styles.css' %}">
+    <script src="{% static 'js/contact_script.js' %}"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">IMPACT</div>
+        <nav>
+            <ul>
+                <!-- Should be modified after the pages are created -->
+                <li><a href="/homepage" data-nav="home">Home</a></li>
+                <li><a href="#" data-nav="about">About</a></li>
+                <li><a href="#" data-nav="stories">Stories</a></li>
+                <li><a href="#" data-nav="projects">Projects</a></li>
+                <li><a href="/homepage/contact/" data-nav="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact IMPACT</h2>
+        <p>IMPACT의 각종 프로젝트와 활동 근황에 대해 더 자세히 알아보세요!<br/>
+            새로운 아이디어는 언제나 환영입니다😊</p>
+
+        <!-- Social Links Section -->
+        <div class="social-links">
+            <a href="https://github.com/IMPACT-KOR" target="_blank" class="mdc-button mdc-button--outlined">
+                <i class="material-icons mdc-button__icon" aria-hidden="true">code</i>
+                <span class="mdc-button__label">GitHub</span>
+            </a>
+            <a href="#" target="_blank" class="mdc-button mdc-button--outlined">
+                <i class="material-icons mdc-button__icon" aria-hidden="true">photo_camera</i>
+                <span class="mdc-button__label">Instagram</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 IMPACT Team. All rights reserved.</p>
+        <div class="social">
+            <a href="https://github.com/IMPACT-KOR">GitHub</a> | 
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- Initialize Material Design Components -->
+    <script>
+        // Initialize MD3 buttons with ripple effects
+        document.querySelectorAll('.mdc-button').forEach(button => {
+            mdc.ripple.MDCRipple.attachTo(button);
+        });
+    </script>
+</body>
+</html>

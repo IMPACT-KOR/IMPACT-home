@@ -1,0 +1,103 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #fff;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    color: #007BFF;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #AAAFFF;
+}
+
+/* Section */
+section.contact {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f0f4ff;
+}
+
+section.contact h2 {
+    font-size: 2.5rem;
+    color: #007BFF;
+}
+
+section.contact p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: white;
+}
+
+/* Footer */
+footer {
+    background-color: white;
+    color: #007BFF;
+    text-align: center;
+    padding: 20px;
+}
+
+footer .social {
+    margin-top: 10px;
+}
+
+footer .social a {
+    color: #007BFF;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer .social a:hover {
+    text-decoration: underline;
+}
