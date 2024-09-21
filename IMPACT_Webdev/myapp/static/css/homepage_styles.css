@@ -62,6 +62,7 @@ nav ul li a:hover {
 .hero p {
     font-size: 1.2rem;
     margin: 20px 0;
+    line-height: 1;
 }
 
 .hero button {
@@ -95,6 +96,7 @@ nav ul li a:hover {
     color: #333;
     max-width: 700px;
     margin: 0 auto;
+    line-height: 5;
 }
 
 /* Projects Section */

@@ -1,19 +1,13 @@
-// Initialize the MD3 button ripple effect
+// Initialize MD3 buttons with ripple effects
 document.querySelectorAll('.mdc-button').forEach(button => {
     mdc.ripple.MDCRipple.attachTo(button);
 });
 
-// Initialize cards for projects
-document.querySelectorAll('.mdc-card').forEach(card => {
-    mdc.ripple.MDCRipple.attachTo(card);
-});
-
-
-// Navigation handler
+// Add event listeners to all navigation links
 document.querySelectorAll('nav ul li a').forEach(link => {
     link.addEventListener('click', (event) => {
         event.preventDefault();
-        const section = event.target.getAttribute('data-nav');
+        const section = event.target.getAttribute('href');  // Get the href attribute
         navigateTo(section);
     });
 });

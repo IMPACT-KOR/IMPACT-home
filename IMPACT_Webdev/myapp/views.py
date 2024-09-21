@@ -125,3 +125,6 @@ def delete(request):
     
 def homepage_view(request):
     return render(request, "homepage/homepage.html")
+
+def homepage_contact(request):
+    return render(request, "homepage/contact.html")

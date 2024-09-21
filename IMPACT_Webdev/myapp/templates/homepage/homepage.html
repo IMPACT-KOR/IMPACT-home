@@ -6,7 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>IMPACT - Innovative Medicine & Progressive Action</title>
+    <title>IMPACT - Innovative Medicine & Progressive Action by Creative Thoughts</title>
+
+    <!-- MD3 CDN Links -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/homepage_styles.css' %}">
     <script src="{% static 'js/homepage_script.js' %}"></script>
 </head>
@@ -16,41 +22,51 @@
         <div class="logo">IMPACT</div>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#stories">Stories</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <!-- Should be modified after the pages are created -->
+                <li><a href="/homepage" data-nav="home">Home</a></li>
+                <li><a href="#" data-nav="about">About</a></li>
+                <li><a href="#" data-nav="stories">Stories</a></li>
+                <li><a href="#" data-nav="projects">Projects</a></li>
+                <li><a href="/homepage/contact/" data-nav="contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Innovative Medicine, Creative Minds</h1>
-        <p>Where medicine and technology meet innovation</p>
-        <button>Learn More</button>
+        <h1>I<span style="color: #AAAFFF; font-size: 2rem;">nnovative</span> M<span style="color: #AAAFFF; font-size: 2rem;">edicine,</span><br/>
+            P<span style="color: #AAAFFF; font-size: 2rem;">rogressive</span> A<span style="color: #AAAFFF; font-size: 2rem;">ction </span>
+            <span style="color: #AAAFFF; font-size: 1.5rem;">by</span> 
+            C<span style="color: #AAAFFF; font-size: 2rem;">reative</span> T<span style="color: #AAAFFF; font-size: 2rem;">houghts</span></h1>
+        <p>Where medicine and technology meet innovation<br/>
+            IMPACT에 오신 것을 환영합니다!</p>
+        <button class="mdc-button mdc-button--raised">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Learn More</span>
+        </button>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <h2>About IMPACT</h2>
-        <p>We are a team of aspiring doctor developers blending AI, web development, and medicine to create innovative solutions for the future of healthcare.</p>
+        <p>저희는 5개 의과대학의 본과 3, 4학년 학생들의 모임으로,<br/>
+            AI, 웹개발, 디지털, 그리고 의학의 융합을 목표로 두어<br/>
+            미래의 의료를 능동적으로 그려나가고자 합니다.</p>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <h2>Featured Projects</h2>
         <div class="project-list">
-            <div class="project">
+            <div class="mdc-card project">
                 <h3>Project 1</h3>
                 <p>A short description of the project goes here.</p>
             </div>
-            <div class="project">
+            <div class="mdc-card project">
                 <h3>Project 2</h3>
                 <p>A short description of the project goes here.</p>
             </div>
-            <div class="project">
+            <div class="mdc-card project">
                 <h3>Project 3</h3>
                 <p>A short description of the project goes here.</p>
             </div>
