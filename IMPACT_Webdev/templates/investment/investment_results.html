@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>투자 결과</title>
+</head>
+<body>
+    <h2>투자 세션: {{ session.session_name }}</h2>
+    <h3>아이디어 투자 결과</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>아이디어</th>
+                <th>총 투자 금액</th>
+                <th>투자자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in investment_data %}
+                <tr>
+                    <td>{{ data.idea.title }}</td>
+                    <td>{{ data.total_investment }}</td>
+                    <td>
+                        <ul>
+                            {% for investor in data.investors %}
+                                <li>{{ investor.username }} ({{ investor.accumulated_investment }})</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

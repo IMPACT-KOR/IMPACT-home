@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>투자</title>
+</head>
+<body>
+    <h2>투자하기</h2>
+    <form method="post">
+        {% csrf_token %}
+        <h3>투자 세션 선택</h3>
+        <label for="session_id">세션 선택:</label>
+        <select name="session_id" id="session_id">
+            {% for session in sessions %}
+                <option value="{{ session.id }}">{{ session.session_name }}</option>
+            {% endfor %}
+        </select>
+        
+        <h3>아이디어 선택 및 투자 금액</h3>
+        <label for="idea_id">아이디어 선택:</label>
+        <select name="idea_id" id="idea_id">
+            {% for idea in ideas %}
+                <option value="{{ idea.id }}">{{ idea.title }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="investment_amount">투자할 금액:</label>
+        <input type="number" name="investment_amount" id="investment_amount" step="0.01">
+        
+        <button type="submit">투자</button>
+    </form>
+</body>
+</html>

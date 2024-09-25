@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>투자 세션 생성</title>
+</head>
+<body>
+    <h2>투자 세션 생성</h2>
+    <form method="post">
+        {% csrf_token %}
+        <h3>세션 정보</h3>
+        {{ session_form.as_p }}
+        
+        <h3>아이디어 정보</h3>
+        {{ idea_form.as_p }}
+        
+        <h3>사용자에게 돈 배분</h3>
+        <label for="selected_user">사용자 선택:</label>
+        <select name="selected_user" id="selected_user">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="allocated_money">배분할 돈:</label>
+        <input type="number" name="allocated_money" id="allocated_money">
+        
+        <button type="submit">세션 생성</button
