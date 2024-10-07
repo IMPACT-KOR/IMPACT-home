@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/homepage_styles.css' %}">
     <script src="{% static 'js/homepage_script.js' %}"></script>
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
@@ -32,10 +34,37 @@
         <button>Learn More</button>
     </section>
 
+    <!-- Leaderboard Section -->
+    <section class="leaderboard">
+        <p style="font-size: 130%;">진행중인 프로젝트</p>
+
+        <h1 style="font-size: 300%;">IMPACT MedQuest Challenge</h1>
+        <br>
+        <p>IMPACT MedQuest는 의과대학 간의 협력과 건전한 경쟁을 통한 학문적 교류를 활성화하기 위한 온라인 Challenge입니다.
+            <br> 제 1회 MedQuest로 저희 IMPACT 팀은 전국의 의과대학 학생들이 주체적으로 참여하며, 팀워크와 비판적 사고를 통해 상호 발전을 도모하기 위한 장을 마련하였습니다.
+        </p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- 이미지 삽입 -->
+        <img src="{% static 'images/medquest_image.png' %}" alt="IMPACT MedQuest Image"
+            style="max-width:50%; height:auto;">
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'leaderboard' %}"><button>View Leaderboard</button></a>
+        <a href="{% url 'challenge_info' %}"><button class="challenge-info-btn">Challenge Information</button></a>
+    </section>
+
+
     <!-- About Section -->
     <section id="about" class="about">
         <h2>About IMPACT</h2>
-        <p>We are a team of aspiring doctor developers blending AI, web development, and medicine to create innovative solutions for the future of healthcare.</p>
+        <p>We are a team of aspiring doctor developers blending AI, web development, and medicine to create innovative
+            solutions for the future of healthcare.</p>
     </section>
 
     <!-- Projects Section -->
@@ -61,10 +90,11 @@
     <footer>
         <p>&copy; 2024 IMPACT Team. All rights reserved.</p>
         <div class="social">
-            <a href="#">Twitter</a> | 
+            <a href="#">Twitter</a> |
             <a href="#">LinkedIn</a>
         </div>
     </footer>
 
 </body>
+
 </html>

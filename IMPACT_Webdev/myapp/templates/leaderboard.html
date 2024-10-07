@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{% static 'css/homepage_styles.css' %}">
+</head>
+
+<body>
+    <section class="leaderboard">
+        <h1 class="leaderboard-title">IMPACT MedQuest Leaderboard</h1>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>School</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard_data %}
+                <tr class="leaderboard-row">
+                    <td
+                        class="{% if entry.rank == 1 %}gold{% elif entry.rank == 2 %}silver{% elif entry.rank == 3 %}bronze{% else %}blue{% endif %}">
+                        {{ entry.rank }}
+                    </td>
+                    <td
+                        class="{% if entry.rank == 1 %}gold{% elif entry.rank == 2 %}silver{% elif entry.rank == 3 %}bronze{% else %}blue{% endif %} leaderboard-school">
+                        {{ entry.school }}
+                    </td>
+                    <td
+                        class="{% if entry.rank == 1 %}gold{% elif entry.rank == 2 %}silver{% elif entry.rank == 3 %}bronze{% else %}blue{% endif %} leaderboard-score">
+                        {{ entry.score }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </section>
+</body>
+
+</html>

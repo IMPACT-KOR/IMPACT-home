@@ -126,6 +126,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'guestbook/static'),  # guestbook 애플리케이션의 정적 파일 경로
+    os.path.join(BASE_DIR, 'myapp/static'),  # myapp 애플리케이션의 정적 파일 경로 추가
+    os.path.join(BASE_DIR, 'myapp/static/challenge_info_static'),
+    
 ]
 
 # Default primary key field type

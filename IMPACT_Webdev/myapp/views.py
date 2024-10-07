@@ -125,3 +125,26 @@ def delete(request):
     
 def homepage_view(request):
     return render(request, "homepage/homepage.html")
+
+
+def leaderboard(request):
+    # 리더보드 데이터 (더 많은 행을 추가)
+    leaderboard_data = [
+        {'rank': 1, 'school': 'Ulsan University', 'score': 5000},
+        {'rank': 2, 'school': 'Catholic University', 'score': 300},
+        {'rank': 3, 'school': 'Yonsei University', 'score': 300},
+        {'rank': 4, 'school': 'Sungkyunkwan University', 'score': 300},
+        {'rank': 5, 'school': 'Seoul National University', 'score': 300},
+        {'rank': 6, 'school': 'Kyung Hee University', 'score': 80},
+        {'rank': 7, 'school': 'Pusan National University', 'score': 70},
+        {'rank': 8, 'school': 'Hanyang University', 'score': 60},
+        {'rank': 9, 'school': 'Chung-Ang University', 'score': 50},
+        {'rank': 10, 'school': 'Inha University', 'score': 40},
+        # 더 많은 데이터 추가 가능
+    ]
+    
+    
+    return render(request, 'leaderboard.html', {'leaderboard_data': leaderboard_data})
+
+def challenge_info(request):
+    return render(request, 'challenge_info.html')
